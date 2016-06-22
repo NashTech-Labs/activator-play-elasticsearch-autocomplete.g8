@@ -18,6 +18,7 @@ import play.api.{Configuration, Logger}
 trait ESManager {
 
   val configuration: Configuration
+
   val logger: Logger
 
 
