@@ -2,7 +2,7 @@ package com.knoldus.util
 
 import java.net.InetAddress
 
-import com.typesafe.config.Config
+import com.typesafe.config.{Config, ConfigFactory}
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse
 import org.elasticsearch.action.admin.indices.refresh.{RefreshRequest, RefreshResponse}
@@ -10,28 +10,28 @@ import org.elasticsearch.client.Client
 import org.elasticsearch.client.transport.TransportClient
 import org.elasticsearch.common.settings.Settings
 import org.elasticsearch.common.transport.InetSocketTransportAddress
-import play.api.{Configuration, Logger}
+import play.api.Logger
+
+import scala.collection.JavaConversions._
 
 /**
   * Manage all the elasticsearch setting for tcp client
   */
 trait ESManager {
-
-  val configuration: Configuration
-
-  val logger: Logger
-
+  
+val config: Config = ConfigFactory.load()
 
   lazy val client: Client = TransportClient.builder().settings(settings).build().addTransportAddresses(addresses: _*)
 
-  val config: Config = configuration.underlying
+
   val ingestIndex = config.getString("index")
-  val nodes = config.getString("nodes").split(',').toList.map(_.trim)
+  val nodes = config.getStringList("nodes").toList
   val port = config.getInt("port")
   val clusterName = config.getString("cluster")
+
   val addresses = nodes.map { host => new InetSocketTransportAddress(InetAddress.getByName(host), port) }
 
-  logger.info(s"ElasticClient: Nodes => $nodes , Port => {$port}")
+  Logger.info(s"ElasticClient: Nodes => $nodes , Port => {$port}")
   private val settings = Settings.settingsBuilder()
     .put("threadpool.search.queue_size", -1)
     .put("threadpool.index.queue_size", -1)
