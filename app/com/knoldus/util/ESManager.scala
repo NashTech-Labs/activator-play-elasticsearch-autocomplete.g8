@@ -18,8 +18,7 @@ import scala.collection.JavaConversions._
   * Manage all the elasticsearch setting for tcp client
   */
 trait ESManager {
-
-
+  
 val config: Config = ConfigFactory.load()
 
   lazy val client: Client = TransportClient.builder().settings(settings).build().addTransportAddresses(addresses: _*)

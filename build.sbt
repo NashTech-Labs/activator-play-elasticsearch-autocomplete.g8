@@ -7,8 +7,7 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq(
-  "org.elasticsearch" % "elasticsearch" % "2.3.3", 
-    specs2 % Test
+  "org.elasticsearch" % "elasticsearch" % "2.3.3",
 )
 
 
