@@ -16,3 +16,8 @@ libraryDependencies ++= Seq(
   "org.webjars" % "jquery-ui" % "1.9.2" exclude("org.webjars", "jquery"),
     specs2 % Test
 )
+
+resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
+
+javaOptions in Test += "-Dconfig.file=conf/test.conf"
+

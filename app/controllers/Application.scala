@@ -5,19 +5,30 @@ import javax.inject.Inject
 import play.api.libs.json.Json
 import play.api.mvc._
 import views.html
+import com.knoldus.search.AutoCompleteProcessor
+import play.api.Logger
 
 class Application @Inject()(webJarAssets: WebJarAssets) extends Controller {
 
-  def index = Action {Ok(html.index(webJarAssets))}
+  private val log = Logger(this.getClass)
 
+  /**
+    * Render main template
+    */
+  def index = Action {
+    Ok(html.index(webJarAssets))
+  }
+
+  /**
+    * Finds all matched items with term
+    *
+    * @param term , the tet which is to be searched
+    * @return list json of matched items
+    */
   def searchText(term: String) = Action {
-    val searchList = {
-      if (term == "j")
-        List("Java", "Javascript", "Jquery")
-      else
-        List("Levis", "Levis men shirt")
-    }
-    Ok(Json.toJson(searchList))
+    val matchedItems = AutoCompleteProcessor.getMatches(term)
+    log.info(s"Matched items with text [$term] => " + matchedItems.mkString)
+    Ok(Json.toJson(matchedItems))
   }
 
 }
