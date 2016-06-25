@@ -27,7 +27,7 @@ class Application @Inject()(webJarAssets: WebJarAssets) extends Controller {
     */
   def searchText(term: String) = Action {
     val matchedItems = AutoCompleteProcessor.getMatches(term)
-    log.info(s"Matched items with text [$term] => " + matchedItems.mkString)
+    log.info(s"Matched items with text = $term => " + matchedItems)
     Ok(Json.toJson(matchedItems))
   }
 

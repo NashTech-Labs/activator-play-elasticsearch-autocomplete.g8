@@ -2,28 +2,20 @@
 
 @main("Elaaticsearch auto complete")(webJarAssets) {
 
-<div class="row">
+<div class="row" style="margin-top: 15px;">
     <div class="col-md-8 col-sm-12">
-<div class="input-group">
-    <input id="search_box"  placeholder="Search here ..." class="form-control" type="text"/>
+
+    <!-- Search box -->
+    <div class="input-group">
+    <input id="search_box" placeholder="Search here ..." class="form-control custom-input" type="text"/>
       <span class="input-group-btn">
-       <button type="button" class="btn btn-primary">
-           <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+       <button type="button" class="btn btn-success">
+           <span style="padding-right: 10px;" class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
        </button>
       </span>
-</div>
+    </div>
  </div>
     <div class="col-md-4 col-sm-12"></div>
 </div>
-
-<script type="text/javascript">
-
-         $(function() {
-            $( "#search_box" ).autocomplete({
-               source: "/search_text"
-            });
-         });
-
-</script>
 
 }

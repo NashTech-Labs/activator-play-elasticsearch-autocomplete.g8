@@ -1,4 +1,30 @@
 
 .page-title{
-   color: #eddeb9;
+   color: #b36331;
+}
+
+.custom-nav {
+    background-color: #EFEFEF;
+    border-color: #E6E4E4;
+    border-bottom: 3px solid rgb(219, 218, 218);
+}
+
+.custom-input {
+    border-radius: 0px !important;
+}
+
+/* loading - the AJAX indicator */
+.ui-autocomplete-loading {
+    background: white url('/assets/images/loading.gif') right center no-repeat;
+}
+
+.bold-text {
+    font-weight: bold;
+    color: #c89f3e;
+}
+
+.ui-state-focus {
+    background: none !important;
+    background-color: #e1e4e4 !important;
+    border: none !important;
 }
