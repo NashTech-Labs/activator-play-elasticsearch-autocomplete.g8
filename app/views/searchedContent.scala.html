@@ -1,0 +1,23 @@
+
+@(items: List[domain.Content])
+
+@items.map { item =>
+ <div class="row content">
+     <div class="col-md-1">
+         <div><img src="@item.img" style="height: 70px; width: 70px;"/></div>
+     </div>
+     <div class="col-md-8">
+        <div>
+            <strong class="content-title">@item.title</strong>
+            <span style="float: right;" class="stars" data-rating="@item.rating" ></span>
+            <span style="font-style: italic; color: rgb(105, 108, 108);">- @item.year</span>
+            <p class="content-detail">@item.plot</p>
+             <div>
+                 <strong class="custom-strong">Genre: </strong><span style="font-size: 12px;">@item.genre</span> |
+                 <strong class="custom-strong">Director: </strong><span style="font-size: 12px;">@item.director</span> |
+                 <strong class="custom-strong">Released: </strong><span style="font-size: 12px;">@item.released</span>
+             </div>
+        </div>
+     </div>
+ </div>
+}

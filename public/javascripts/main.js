@@ -32,8 +32,37 @@
     $(function() {
         $("#search_box").autocomplete({
             source: "/search_text",
-            highlightClass: "bold-text"  // If remove then only highlight with background color.
+            highlightClass: "bold-text",  // If remove then only highlight with background color.
+            select:  function( event, ui ) {
+                    getSearchedContent(ui.item.value);
+              }
         });
   });
 
 })( jQuery );
+
+var getSearchedContent = function(text) {
+        $.ajax({
+        type: "GET",
+        url: "/search_content",
+        data: {search: text},
+        cache: false,
+        success: function(data){
+             $("#search_result").html(data);
+             $( ".stars" ).each(function() {
+                 // Get the value
+                 var val = $(this).data("rating");
+                 // Make sure that the value is in 0 - 5 range, multiply to get width
+                 var size = Math.max(0, (Math.min(10, val))) * 8;
+                 // Create stars holder
+                 var $span = $('<span />').width(size);
+                 // Replace the numerical value with stars
+                 $(this).html($span);
+             });
+        }
+     });
+}
+
+
+
+
