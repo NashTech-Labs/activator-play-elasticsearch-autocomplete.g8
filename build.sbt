@@ -14,6 +14,7 @@ libraryDependencies ++= Seq(
   "org.webjars" % "jquery" % "1.11.3",
   "org.webjars" % "bootstrap" % "3.3.6" exclude("org.webjars", "jquery"),
   "org.webjars" % "jquery-ui" % "1.9.2" exclude("org.webjars", "jquery"),
+  "net.liftweb"                	%%      "lift-json"         	%       "2.6",
     specs2 % Test
 )
 

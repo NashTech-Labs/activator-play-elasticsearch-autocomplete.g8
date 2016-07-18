@@ -1,3 +1,3 @@
 package domain
 
-case class Content(title: String, year: String, genre: String, plot: String, img: String, released: String, director:String, rating:String)
+case class Content(Title: String, Year: String, Genre: String, Plot: String, Poster: String, Released: String, Director:String, imdbRating:String)
