@@ -42,4 +42,6 @@ class Application @Inject()(webJarAssets: WebJarAssets, autoCompleteProcessor: A
     Ok(views.html.searchedContent(res))
   }
 
+
 }
+
