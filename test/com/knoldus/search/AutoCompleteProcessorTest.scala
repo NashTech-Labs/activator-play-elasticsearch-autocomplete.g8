@@ -16,6 +16,7 @@ class AutoCompleteProcessorTest extends PlaySpecification with ESManager {
 
     "get movies" in new WithApplication {
       val result = autoCompleteProcessor.getMovies("Gone Girl")
+      print(result)
       assert(result.head.contains("Gone Girl"))
     }
 

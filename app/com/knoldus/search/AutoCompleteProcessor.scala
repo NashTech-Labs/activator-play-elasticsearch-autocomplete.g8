@@ -2,6 +2,7 @@ package com.knoldus.search
 
 import com.google.inject.ImplementedBy
 import com.knoldus.util.ESManager
+import net.liftweb.json.DefaultFormats
 import org.elasticsearch.index.query.{MatchQueryBuilder, QueryBuilders}
 import play.api.Logger
 
@@ -9,7 +10,7 @@ import play.api.Logger
 trait AutoCompleteProcessorApi extends ESManager {
 
   private val log = Logger(this.getClass)
-
+  implicit protected val formats = DefaultFormats
   /**
     * Finds matched items from elasticsearch
     *
@@ -35,7 +36,7 @@ trait AutoCompleteProcessorApi extends ESManager {
       val query = client.prepareSearch(ingestIndex)
         .setQuery(QueryBuilders.matchPhraseQuery("_all", text).operator(MatchQueryBuilder.Operator.AND)).get
       query.getHits.hits().toList.map {
-        hit => hit.getSource.toString
+        hit => hit.getSourceAsString
       }
     } catch {
       case ex: Exception =>
