@@ -2,13 +2,13 @@ package controllers
 
 import javax.inject.Inject
 
+import com.knoldus.search.AutoCompleteProcessorApi
+import play.api.Logger
 import play.api.libs.json.Json
 import play.api.mvc._
 import views.html
-import com.knoldus.search.AutoCompleteProcessor
-import play.api.Logger
 
-class Application @Inject()(webJarAssets: WebJarAssets) extends Controller {
+class Application @Inject()(webJarAssets: WebJarAssets, autoCompleteProcessor: AutoCompleteProcessorApi) extends Controller {
 
   private val log = Logger(this.getClass)
 
@@ -26,7 +26,7 @@ class Application @Inject()(webJarAssets: WebJarAssets) extends Controller {
     * @return list json of matched items
     */
   def searchText(term: String) = Action {
-    val matchedItems = AutoCompleteProcessor.getMatches(term)
+    val matchedItems = autoCompleteProcessor.getMatches(term)
     log.info(s"Matched items with text = $term => " + matchedItems)
     Ok(Json.toJson(matchedItems))
   }
