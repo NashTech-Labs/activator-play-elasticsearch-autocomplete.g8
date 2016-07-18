@@ -8,14 +8,16 @@ import play.api.Logger
 import play.api.libs.json.Json
 import play.api.mvc._
 import views.html
-import net.liftweb.json.{ parse => liftParser }
+import net.liftweb.json.{parse => liftParser}
 
 class Application @Inject()(webJarAssets: WebJarAssets, autoCompleteProcessor: AutoCompleteProcessorApi) extends Controller {
 
   private val log = Logger(this.getClass)
+
   implicit protected val formats = DefaultFormats
+
   /**
-    * Render main template
+    * Render Home page
     */
   def index = Action {
     Ok(html.index(webJarAssets))
@@ -33,13 +35,15 @@ class Application @Inject()(webJarAssets: WebJarAssets, autoCompleteProcessor: A
     Ok(Json.toJson(matchedItems))
   }
 
-  def searchContent(search: String) = Action {
-    val movies = autoCompleteProcessor.getMovies(search)
-    log.info(movies.toString())
-    val res = movies.map {
+  /**
+    * Search all movie content on the basis of search text
+    */
+  def searchMovie(search: String) = Action {
+    val moviesJson = autoCompleteProcessor.getMovies(search)
+    val movieList = moviesJson.map {
       movie => liftParser(movie).extract[domain.Content]
     }
-    Ok(views.html.searchedContent(res))
+    Ok(views.html.searchedContent(movieList))
   }
 
 

@@ -65,6 +65,10 @@ var getSearchedContent = function(text) {
      });
 }
 
+var searchContent = function() {
+    var text = $("#search_box").val();
+    getSearchedContent(text);
+}
 
 
 

@@ -15,7 +15,7 @@ import play.api.Logger
 import scala.collection.JavaConversions._
 
 /**
-  * Manage all the elasticsearch setting for tcp client
+  * Manage all the elasticsearch setting for TCP client
   */
 trait ESManager {
 
@@ -25,10 +25,10 @@ trait ESManager {
 
   lazy val client: Client = TransportClient.builder().settings(settings).build().addTransportAddresses(addresses: _*)
 
-  val ingestIndex = config.getString("index")
-  private val nodes = config.getStringList("nodes").toList
-  private val port = config.getInt("port")
-  private val clusterName = config.getString("cluster")
+  val ingestIndex = config.getString("es.index")
+  private val nodes = config.getStringList("es.nodes").toList
+  private val port = config.getInt("es.tcp.port")
+  private val clusterName = config.getString("es.cluster")
 
   private val addresses = nodes.map { host => new InetSocketTransportAddress(InetAddress.getByName(host), port) }
 
