@@ -15,23 +15,25 @@ import play.api.Logger
 import scala.collection.JavaConversions._
 
 /**
-  * Manage all the elasticsearch setting for tcp client
+  * Manage all the elasticsearch setting for TCP client
   */
 trait ESManager {
-  
-val config: Config = ConfigFactory.load()
+
+  private val log = Logger(this.getClass)
+
+  private val config: Config = ConfigFactory.load()
 
   lazy val client: Client = TransportClient.builder().settings(settings).build().addTransportAddresses(addresses: _*)
 
+  val ingestIndex = config.getString("es.index")
+  private val nodes = config.getStringList("es.nodes").toList
+  private val port = config.getInt("es.tcp.port")
+  private val clusterName = config.getString("es.cluster")
 
-  val ingestIndex = config.getString("index")
-  val nodes = config.getStringList("nodes").toList
-  val port = config.getInt("port")
-  val clusterName = config.getString("cluster")
+  private val addresses = nodes.map { host => new InetSocketTransportAddress(InetAddress.getByName(host), port) }
 
-  val addresses = nodes.map { host => new InetSocketTransportAddress(InetAddress.getByName(host), port) }
+  log.info(s"ElasticClient: Nodes => $nodes , Port => {$port}")
 
-  Logger.info(s"ElasticClient: Nodes => $nodes , Port => {$port}")
   private val settings = Settings.settingsBuilder()
     .put("threadpool.search.queue_size", -1)
     .put("threadpool.index.queue_size", -1)

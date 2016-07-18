@@ -1,20 +1,28 @@
-@*
- * This template takes a single argument, a String containing a
- * message to display.
- *@
-@(message: String)
+@(webJarAssets: WebJarAssets)
 
-@*
- * Call the `main` template with two arguments. The first
- * argument is a `String` with the title of the page, the second
- * argument is an `Html` object containing the body of the page.
- *@
-@main("Welcome to Play") {
+@main("Elaaticsearch auto complete")(webJarAssets) {
 
-    @*
-     * Get an `Html` object by calling the built-in Play welcome
-     * template and passing a `String` message.
-     *@
-    @message
+<div class="row" style="margin-top: 15px;">
+    <div class="col-md-8 col-sm-12">
+
+    <!-- Search box -->
+    <div class="input-group">
+    <input id="search_box" placeholder="Search here ..." class="form-control custom-input" type="text"/>
+      <span class="input-group-btn">
+       <button type="button" class="btn btn-success" onclick="searchContent();">
+           <span style="padding-right: 10px;" class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+       </button>
+      </span>
+    </div>
+ </div>
+    <div class="col-md-4 col-sm-12"></div>
+</div>
+<br>
+<br>
+
+<!-- Searched content -->
+<div class="row">
+    <div id="search_result" style="padding-left: 16px;"></div>
+</div>
 
 }
