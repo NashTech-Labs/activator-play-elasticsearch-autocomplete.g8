@@ -10,7 +10,9 @@ import play.api.Logger
 trait AutoCompleteProcessorApi extends ESManager {
 
   private val log = Logger(this.getClass)
+
   implicit protected val formats = DefaultFormats
+
   /**
     * Finds matched items from elasticsearch
     *
@@ -26,17 +28,16 @@ trait AutoCompleteProcessorApi extends ESManager {
       }
     } catch {
       case ex: Exception =>
-        log.error("Some error has occured",ex)
+        log.error("Some error has occured", ex)
         Nil
     }
   }
 
   /**
-    * Finds all the movies that match the text.
-    * @param text, term which is to be searched
-    * @return : List of movies
+    * Returns all the document from elasticseach
+    * @param text which is to be searched
+    * @return List of document json
     */
-
   def getMovies(text: String): List[String] = {
     try {
       val query = client.prepareSearch(ingestIndex)
@@ -46,7 +47,7 @@ trait AutoCompleteProcessorApi extends ESManager {
       }
     } catch {
       case ex: Exception =>
-        log.error("Some error has occured", ex)
+        log.error("Exception occurred: ", ex)
         Nil
     }
   }
