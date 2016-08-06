@@ -31,6 +31,12 @@ trait AutoCompleteProcessorApi extends ESManager {
     }
   }
 
+  /**
+    * Finds all the movies that match the text.
+    * @param text, term which is to be searched
+    * @return : List of movies
+    */
+
   def getMovies(text: String): List[String] = {
     try {
       val query = client.prepareSearch(ingestIndex)
