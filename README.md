@@ -13,11 +13,20 @@ This is a Play activator project.It's describe how to build autocomplete search 
      $ ./activator test
 
  Getting Started:
-    1. Download the latest version of Elasticsearch official distribution and unzip it.
-    2. Run ./bin/elasticsearch
-    3. Run curl -X GET http://localhost:9200/ to get information about the server.
+ 
+       1. Download the latest version of Elasticsearch official distribution and unzip it.
+    
+       2. $ ./bin/elasticsearch
+   
+    
 
  Indexing:
-    1. Run "curl -XPOST 'http://localhost:9200/testing' --data-binary @extra/es-mapping.json" to create an index
-       named testing with mapping.
-    2. Run "curl -XPOST 'http://localhost:9200/_bulk' --data-binary @extra/movies.json" to ingest the movies in the index
+ 
+   Create an index named testing with mapping:
+   
+       $ curl -XPOST 'http://localhost:9200/testing' --data-binary @extra/es-mapping.json
+       
+   Ingest the movies in the index:
+   
+        $ curl -XPOST 'http://localhost:9200/_bulk' --data-binary @extra/movies.json" 
+    
