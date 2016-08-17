@@ -17,7 +17,7 @@ class AutoCompleteProcessorTest extends PlaySpecification with TestHelper with B
 
   override def afterAll = {
     client.close()
-    client.admin().indices().prepareDelete("movie").get
+    client.admin().indices().prepareDelete(index).get
   }
 
   override def beforeAll = {
