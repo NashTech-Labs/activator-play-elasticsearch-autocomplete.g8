@@ -1,13 +1,17 @@
 package com.knoldus.search
 
+import com.google.inject.ImplementedBy
 import com.knoldus.util.ESManager
+import net.liftweb.json.DefaultFormats
 import org.elasticsearch.index.query.{MatchQueryBuilder, QueryBuilders}
 import play.api.Logger
 
-trait AutoCompleteProcessor {
-  this: ESManager =>
+@ImplementedBy(classOf[AutoCompleteProcessor])
+trait AutoCompleteProcessorApi extends ESManager {
 
   private val log = Logger(this.getClass)
+
+  implicit protected val formats = DefaultFormats
 
   /**
     * Finds matched items from elasticsearch
@@ -20,15 +24,34 @@ trait AutoCompleteProcessor {
       val query = client.prepareSearch(ingestIndex)
         .setQuery(QueryBuilders.matchPhraseQuery("_all", text).operator(MatchQueryBuilder.Operator.AND)).get
       query.getHits.hits().toList.map {
-        hit => hit.getSource.get("name").toString
+        hit => hit.getSource.get("Title").toString
       }
     } catch {
       case ex: Exception =>
-        log.error(ex.printStackTrace.toString)
+        log.error("Some error has occured", ex)
+        Nil
+    }
+  }
+
+  /**
+    * Returns all the document from elasticseach
+    * @param text which is to be searched
+    * @return List of document json
+    */
+  def getMovies(text: String): List[String] = {
+    try {
+      val query = client.prepareSearch(ingestIndex)
+        .setQuery(QueryBuilders.matchPhraseQuery("_all", text).operator(MatchQueryBuilder.Operator.AND)).get
+      query.getHits.hits().toList.map {
+        hit => hit.getSourceAsString
+      }
+    } catch {
+      case ex: Exception =>
+        log.error("Exception occurred: ", ex)
         Nil
     }
   }
 
 }
 
-object AutoCompleteProcessor extends AutoCompleteProcessor with ESManager
+class AutoCompleteProcessor extends AutoCompleteProcessorApi

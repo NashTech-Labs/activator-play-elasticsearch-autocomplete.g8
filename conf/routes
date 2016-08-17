@@ -5,7 +5,7 @@
 # An example controller showing a sample home page
 GET     /                           controllers.Application.index
 GET     /search_text                controllers.Application.searchText(term:String)
-GET     /search_content             controllers.Application.searchContent(search:String)
+GET     /search_content             controllers.Application.searchMovie(search:String)
 
 
 # Map static resources from the /public folder to the /assets URL path

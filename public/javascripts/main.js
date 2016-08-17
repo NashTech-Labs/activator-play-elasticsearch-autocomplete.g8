@@ -41,6 +41,8 @@
 
 })( jQuery );
 
+
+// Load searched content
 var getSearchedContent = function(text) {
         $.ajax({
         type: "GET",
@@ -49,10 +51,10 @@ var getSearchedContent = function(text) {
         cache: false,
         success: function(data){
              $("#search_result").html(data);
-             $( ".stars" ).each(function() {
-                 // Get the value
+             $(".stars").each(function() {
+                 // Get the rating value
                  var val = $(this).data("rating");
-                 // Make sure that the value is in 0 - 5 range, multiply to get width
+                 // Calculate width
                  var size = Math.max(0, (Math.min(10, val))) * 8;
                  // Create stars holder
                  var $span = $('<span />').width(size);
@@ -63,6 +65,10 @@ var getSearchedContent = function(text) {
      });
 }
 
+var searchContent = function() {
+    var text = $("#search_box").val();
+    getSearchedContent(text);
+}
 
 
 

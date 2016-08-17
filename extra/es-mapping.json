@@ -1,0 +1,124 @@
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "gramFilter": {
+          "type": "nGram",
+          "min_gram": 1,
+          "max_gram": 20,
+          "token_chars": [
+            "letter",
+            "digit"
+          ]
+        }
+      },
+      "analyzer": {
+        "gramAnalyzer": {
+          "type": "custom",
+          "tokenizer": "whitespace",
+          "filter": [
+            "lowercase",
+            "gramFilter"
+          ]
+        },
+        "whitespaceAnalyzer": {
+          "type": "custom",
+          "tokenizer": "whitespace",
+          "filter": [
+            "lowercase"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "movies": {
+      "_all": {
+        "analyzer": "gramAnalyzer",
+        "search_analyzer": "whitespaceAnalyzer"
+      },
+      "properties": {
+        "Title": {
+          "type": "string",
+          "include_in_all": true
+        },
+        "Year": {
+          "type": "string",
+          "include_in_all": false
+        },
+        "Rated": {
+          "type": "string",
+          "include_in_all": false
+        },
+        "Released": {
+          "type": "string",
+          "include_in_all": false
+        },
+        "Runtime": {
+          "type": "string",
+          "include_in_all": false
+        },
+        "Genre": {
+          "type": "string",
+          "include_in_all": false
+        },
+        "Director": {
+          "type": "string",
+          "include_in_all": false
+        },
+        "Writer": {
+          "type": "string",
+          "include_in_all": false
+        },
+        "Actors": {
+          "type": "string",
+          "include_in_all": false
+        },
+        "Language": {
+          "type": "string",
+          "include_in_all": false
+        },
+        "Country": {
+          "type": "string",
+          "include_in_all": false
+        },
+        "Plot": {
+          "type": "string",
+          "include_in_all": false
+        },
+        "Awards": {
+          "type": "string",
+          "include_in_all": false
+        },
+        "Poster": {
+          "type": "string",
+          "include_in_all": false
+        },
+        "Metascore": {
+          "type": "string",
+          "include_in_all": false
+        },
+        "imdbRating": {
+          "type": "string",
+          "include_in_all": false
+        },
+        "imdbVotes": {
+          "type": "string",
+          "include_in_all": false
+        },
+        "imdbID": {
+          "type": "string",
+          "index": "no"
+        },
+        "Type": {
+          "type": "string",
+          "index": "no"
+        },
+        "Response": {
+          "type": "string",
+          "index": "no"
+        }
+      }
+    }
+  }
+}
