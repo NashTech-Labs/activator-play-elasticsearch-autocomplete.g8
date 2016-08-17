@@ -4,30 +4,31 @@ This is a Play activator project.It describes how to build autocomplete search o
 
 #Pre-Requisites for this project
 
-       1. [Download](https://www.elastic.co/downloads/elasticsearch) the latest version of Elasticsearch official distribution and unzip it.
+i) [Download](https://www.elastic.co/downloads/elasticsearch) the latest version of Elasticsearch official distribution and unzip it.
 
-       2. $ ./bin/elasticsearch
+ii) Run the following command.
 
+       $ ./bin/elasticsearch
 
+###Indexing:
 
- ###Indexing:
-
-   Create an index named testing with mapping:
+   i) Create an index named testing with mapping:
 
        $ curl -XPOST 'http://localhost:9200/movie' --data-binary @extra/es-mapping.json
 
-   Ingest the movies in the index:
+   ii) Ingest the movies in the index:
 
         $ curl -XPOST 'http://localhost:9200/_bulk' --data-binary @extra/movies.json
 
-
+-----------------------------------------------------------------------
 ###Getting Started:
+-----------------------------------------------------------------------
 
  Clone and run the app(default database is H2):
 
-      $ git clone git@github.com:knoldus/activator-play-elasticsearch-autocomplete.git
-      $ cd activator-play-elasticsearch-autocomplete
-      $ ./activator run
+       $ git clone git@github.com:knoldus/activator-play-elasticsearch-autocomplete.git
+       $ cd activator-play-elasticsearch-autocomplete
+       $ ./activator run
 
  Run the all unit test:
 
@@ -37,10 +38,15 @@ This is a Play activator project.It describes how to build autocomplete search o
 -----------------------------------------------------------------------
 ###All the Screens :-
 -----------------------------------------------------------------------
-### Home Page
+
+### Home Page :
+
 
 ![alt-tag](/public/images/homePage.png)
 
-### Movie Search
+
+### Movie Search :
+
 
 ![alt-tag](/public/images/movie.png)
+
