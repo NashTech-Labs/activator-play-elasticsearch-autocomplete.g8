@@ -13,21 +13,22 @@ class AutoCompleteProcessorTest extends PlaySpecification with TestHelper with B
 
   val autoCompleteProcessor = new AutoCompleteProcessor
   val client = localClient.client
+  val index = "movie"
 
   override def afterAll = {
     client.close()
-    client.admin().indices().prepareDelete("testing").get
+    client.admin().indices().prepareDelete(index).get
   }
 
   override def beforeAll = {
     val settings = Source.fromFile(new File("extra/es-mapping.json")).mkString
-    client.admin().indices().prepareCreate("testing").setSource(settings).get
+    client.admin().indices().prepareCreate(index).setSource(settings).get
     val bulkRequest = client.prepareBulk()
     Source.fromFile(new File("extra/movies.json")).getLines().foreach{
-      movie => bulkRequest.add(client.prepareIndex("testing", "movies").setSource(movie))
+      movie => bulkRequest.add(client.prepareIndex(index, "movies").setSource(movie))
     }
     bulkRequest.get()
-    client.admin().indices().refresh(new RefreshRequest("testing")).get
+    client.admin().indices().refresh(new RefreshRequest(index)).get
   }
 
   "Play Specification" should {
