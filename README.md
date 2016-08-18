@@ -22,7 +22,7 @@ ii) Run the following command.
 
 ###Indexing:
 
-   i) Create an index named testing with mapping(extra/es-mapping.json located in project home directory):
+   i) Create an index named movie  with mapping(extra/es-mapping.json located in project home directory):
 
         $ curl -XPOST 'http://localhost:9200/movie' --data-binary @extra/es-mapping.json
 
