@@ -8,31 +8,34 @@ i) [Download](https://www.elastic.co/downloads/elasticsearch) the latest version
 
 ii) Run the following command.
 
-       $ ./bin/elasticsearch
+        $ ./bin/elasticsearch
 
-###Indexing:
-
-   i) Create an index named testing with mapping:
-
-       $ curl -XPOST 'http://localhost:9200/movie' --data-binary @extra/es-mapping.json
-
-   ii) Ingest the movies in the index:
-
-        $ curl -XPOST 'http://localhost:9200/_bulk' --data-binary @extra/movies.json
 
 -----------------------------------------------------------------------
 ###Getting Started:
 -----------------------------------------------------------------------
 
- Clone and run the app(default database is H2):
+ Clone the code:
 
-       $ git clone git@github.com:knoldus/activator-play-elasticsearch-autocomplete.git
-       $ cd activator-play-elasticsearch-autocomplete
-       $ ./activator run
+        $ git clone git@github.com:knoldus/activator-play-elasticsearch-autocomplete.git
+        $ cd activator-play-elasticsearch-autocomplete
 
- Run the all unit test:
+###Indexing:
 
-     $ ./activator test
+   i) Create an index named testing with mapping(extra/es-mapping.json located in project home directory):
+
+        $ curl -XPOST 'http://localhost:9200/movie' --data-binary @extra/es-mapping.json
+
+   ii) Ingest the movies in the index:
+
+        $ curl -XPOST 'http://localhost:9200/_bulk' --data-binary @extra/movies.json
+
+#### Start App:
+        $ ./bin/activator run
+
+####Run the all unit test:
+
+        $ ./bin/activator test
 
 
 -----------------------------------------------------------------------
