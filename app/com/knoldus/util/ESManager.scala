@@ -17,7 +17,7 @@ import scala.collection.JavaConversions._
 /**
   * Manage all the elasticsearch setting for TCP client
   */
-trait ESManager {
+class ESManager {
 
   private val log = Logger(this.getClass)
 

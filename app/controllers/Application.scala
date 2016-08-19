@@ -2,19 +2,18 @@ package controllers
 
 import javax.inject.Inject
 
-import com.knoldus.search.AutoCompleteProcessorApi
-import net.liftweb.json.DefaultFormats
+import com.knoldus.search.AutoCompleteProcessor
+import domain.Content
 import play.api.Logger
 import play.api.libs.json.Json
 import play.api.mvc._
 import views.html
-import net.liftweb.json.{parse => liftParser}
+import com.knoldus.util.JsonFormatter._
 
-class Application @Inject()(webJarAssets: WebJarAssets, autoCompleteProcessor: AutoCompleteProcessorApi) extends Controller {
+class Application @Inject()(webJarAssets: WebJarAssets, autoCompleteProcessor: AutoCompleteProcessor) extends Controller {
 
   private val log = Logger(this.getClass)
 
-  implicit protected val formats = DefaultFormats
 
   /**
     * Render Home page
@@ -30,7 +29,7 @@ class Application @Inject()(webJarAssets: WebJarAssets, autoCompleteProcessor: A
     * @return list json of matched items
     */
   def searchText(term: String) = Action {
-    val matchedItems = autoCompleteProcessor.getMatches(term)
+    val matchedItems: List[String] = autoCompleteProcessor.getMatches(term)
     log.info(s"Matched items with text = $term => " + matchedItems)
     Ok(Json.toJson(matchedItems))
   }
@@ -39,9 +38,9 @@ class Application @Inject()(webJarAssets: WebJarAssets, autoCompleteProcessor: A
     * Search all movie content on the basis of search text
     */
   def searchMovie(search: String) = Action {
-    val moviesJson = autoCompleteProcessor.getMovies(search)
+    val moviesJson: List[String] = autoCompleteProcessor.getMovies(search)
     val movieList = moviesJson.map {
-      movie => liftParser(movie).extract[domain.Content]
+      movie => Json.parse(movie).as[Content]
     }
     Ok(views.html.searchedContent(movieList))
   }

@@ -1,17 +1,16 @@
 package com.knoldus.search
 
-import com.google.inject.ImplementedBy
+
+import com.google.inject.Inject
 import com.knoldus.util.ESManager
-import net.liftweb.json.DefaultFormats
 import org.elasticsearch.index.query.{MatchQueryBuilder, QueryBuilders}
 import play.api.Logger
 
-@ImplementedBy(classOf[AutoCompleteProcessor])
-trait AutoCompleteProcessorApi extends ESManager {
+class AutoCompleteProcessor @Inject()(esManager: ESManager) {
+
+  import esManager._
 
   private val log = Logger(this.getClass)
-
-  implicit protected val formats = DefaultFormats
 
   /**
     * Finds matched items from elasticsearch
@@ -35,6 +34,7 @@ trait AutoCompleteProcessorApi extends ESManager {
 
   /**
     * Returns all the document from elasticseach
+    *
     * @param text which is to be searched
     * @return List of document json
     */
@@ -53,5 +53,3 @@ trait AutoCompleteProcessorApi extends ESManager {
   }
 
 }
-
-class AutoCompleteProcessor extends AutoCompleteProcessorApi

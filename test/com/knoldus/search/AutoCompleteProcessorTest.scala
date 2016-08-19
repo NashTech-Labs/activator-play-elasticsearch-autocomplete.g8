@@ -2,17 +2,22 @@ package com.knoldus.search
 
 import java.io.File
 
+import com.knoldus.util.ESManager
 import org.elasticsearch.action.admin.indices.refresh.RefreshRequest
+import org.elasticsearch.client.Client
 import org.specs2.specification.BeforeAfterAll
 import play.api.test.{PlaySpecification, WithApplication}
 import util.TestHelper
 
 import scala.io.Source
 
-class AutoCompleteProcessorTest extends PlaySpecification with TestHelper with BeforeAfterAll{
+class AutoCompleteProcessorTest extends PlaySpecification with TestHelper with BeforeAfterAll {
 
-  val autoCompleteProcessor = new AutoCompleteProcessor
-  val client = localClient.client
+  val autoCompleteProcessor = new AutoCompleteProcessor(new ESManager {
+    override lazy val client: Client = localClient.client
+  })
+
+  val client: Client = localClient.client
   val index = "movie"
 
   override def afterAll = {
@@ -24,7 +29,7 @@ class AutoCompleteProcessorTest extends PlaySpecification with TestHelper with B
     val settings = Source.fromFile(new File("extra/es-mapping.json")).mkString
     client.admin().indices().prepareCreate(index).setSource(settings).get
     val bulkRequest = client.prepareBulk()
-    Source.fromFile(new File("extra/movies.json")).getLines().foreach{
+    Source.fromFile(new File("extra/movies.json")).getLines().foreach {
       movie => bulkRequest.add(client.prepareIndex(index, "movies").setSource(movie))
     }
     bulkRequest.get()
