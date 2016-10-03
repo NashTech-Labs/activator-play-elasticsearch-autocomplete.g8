@@ -1,6 +1,5 @@
 package com.knoldus.search
 
-
 import com.google.inject.Inject
 import com.knoldus.util.ESManager
 import org.elasticsearch.index.query.{MatchQueryBuilder, QueryBuilders}
@@ -21,7 +20,7 @@ class AutoCompleteProcessor @Inject()(esManager: ESManager) {
   def getMatches(text: String): List[String] = {
     try {
       val query = client.prepareSearch(ingestIndex)
-        .setQuery(QueryBuilders.matchPhraseQuery("_all", text).operator(MatchQueryBuilder.Operator.AND)).get
+        .setQuery(QueryBuilders.matchPhraseQuery("Title", text)).get
       query.getHits.hits().toList.map {
         hit => hit.getSource.get("Title").toString
       }
@@ -41,7 +40,7 @@ class AutoCompleteProcessor @Inject()(esManager: ESManager) {
   def getMovies(text: String): List[String] = {
     try {
       val query = client.prepareSearch(ingestIndex)
-        .setQuery(QueryBuilders.matchPhraseQuery("_all", text).operator(MatchQueryBuilder.Operator.AND)).get
+        .setQuery(QueryBuilders.matchPhraseQuery("Title", text)).get
       query.getHits.hits().toList.map {
         hit => hit.getSourceAsString
       }

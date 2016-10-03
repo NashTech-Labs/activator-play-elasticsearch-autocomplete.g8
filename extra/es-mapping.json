@@ -33,78 +33,59 @@
   },
   "mappings": {
     "movies": {
-      "_all": {
-        "analyzer": "gramAnalyzer",
-        "search_analyzer": "whitespaceAnalyzer"
-      },
       "properties": {
         "Title": {
           "type": "string",
-          "include_in_all": true
+          "analyzer": "gramAnalyzer",
+          "search_analyzer": "whitespaceAnalyzer"
         },
         "Year": {
-          "type": "string",
-          "include_in_all": false
+          "type": "string"
         },
         "Rated": {
-          "type": "string",
-          "include_in_all": false
+          "type": "string"
         },
         "Released": {
-          "type": "string",
-          "include_in_all": false
+          "type": "string"
         },
         "Runtime": {
-          "type": "string",
-          "include_in_all": false
+          "type": "string"
         },
         "Genre": {
-          "type": "string",
-          "include_in_all": false
+          "type": "string"
         },
         "Director": {
-          "type": "string",
-          "include_in_all": false
+          "type": "string"
         },
         "Writer": {
-          "type": "string",
-          "include_in_all": false
+          "type": "string"
         },
         "Actors": {
-          "type": "string",
-          "include_in_all": false
+          "type": "string"
         },
         "Language": {
-          "type": "string",
-          "include_in_all": false
+          "type": "string"
         },
         "Country": {
-          "type": "string",
-          "include_in_all": false
+          "type": "string"
         },
         "Plot": {
-          "type": "string",
-          "include_in_all": false
+          "type": "string"
         },
         "Awards": {
-          "type": "string",
-          "include_in_all": false
+          "type": "string"
         },
         "Poster": {
-          "type": "string",
-          "include_in_all": false
+          "type": "string"
         },
         "Metascore": {
-          "type": "string",
-          "include_in_all": false
+          "type": "string"
         },
         "imdbRating": {
-          "type": "string",
-          "include_in_all": false
+          "type": "string"
         },
         "imdbVotes": {
-          "type": "string",
-          "include_in_all": false
+          "type": "string"
         },
         "imdbID": {
           "type": "string",
